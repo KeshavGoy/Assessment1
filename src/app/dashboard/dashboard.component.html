@@ -1,0 +1,82 @@
+<div class="vh-100 w-100 d-flex">
+    <mat-stepper [linear]="true" #stepper class="w-100">
+        <mat-step [stepControl]="Step_1_Form" [editable]="!FormSubmitted">
+            <form [formGroup]="Step_1_Form">
+            <ng-template matStepLabel>Step 1: <span>
+                    @if(stepper.selectedIndex == 0){
+                        Current
+                    }
+                    @else if(stepper.selectedIndex > 0){
+                        Completed
+                    }
+                    @else{
+                        Incomplete
+                    }
+                </span>
+            </ng-template>
+            <mat-form-field class="w-50">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Joe" formControlName="FirstName">
+            </mat-form-field>
+            <div>
+                <button matButton matStepperNext [disabled]="!Step_1_Form.valid">Next</button>
+            </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="Step_2_Form" [editable]="!FormSubmitted">
+            <form [formGroup]="Step_2_Form">
+                <ng-template matStepLabel>Step 2: 
+                    <span>
+                        @if(stepper.selectedIndex == 1){
+                            Current
+                        }
+                        @else if(stepper.selectedIndex > 1){
+                            Completed
+                        }
+                        @else{
+                            Incomplete
+                        }
+                    </span>
+                </ng-template>
+            <mat-form-field class="w-50">
+                <mat-label>Last Name:</mat-label>
+                <input matInput formControlName="LastName" placeholder="Goyal">
+            </mat-form-field>
+            <div class="d-flex gap-4">
+                <button matButton matStepperPrevious>Back</button>
+                <button matButton matStepperNext [disabled]="!Step_2_Form.valid">Next</button>
+            </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="Step_3_Form" #step3 [completed]="FormSubmitted" [editable]="!FormSubmitted">
+            @if(step3.completed){
+                <ng-template matStepLabel>Step 3: 
+                    <span>Completed</span>
+                </ng-template>
+                <p>You are Done</p>
+            }
+            @else{
+                <form [formGroup]="Step_3_Form">
+                    <ng-template matStepLabel>Step 3: 
+                        <span>
+                            @if(stepper.selectedIndex == 2){
+                                Current
+                            }
+                            @else{
+                                Incomplete
+                            }
+                        </span>
+                    </ng-template>
+                    <mat-form-field class="w-50">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="Email" placeholder="abc@gmail.com">
+                    </mat-form-field>
+                    <div class="d-flex gap-4">
+                        <button matButton matStepperPrevious>Back</button>
+                        <button matButton matStepperNext (click)="submitForm()" [disabled]="!Step_3_Form.valid">Next</button>
+                    </div>
+                </form>
+            }
+        </mat-step>
+    </mat-stepper>
+</div>
